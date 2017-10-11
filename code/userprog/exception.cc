@@ -67,10 +67,10 @@ ExceptionHandler(ExceptionType which) {
             char* buffer_ptr = kernel->machine->ReadRegister(4);
             int size = kernel->machine->ReadRegister(5);
             int file_id = kernel->machine->ReadRegister(6);
+            val = kernel->machine->ReadRegister(4);
+            char *msg = &(kernel->machine->mainMemory[val]);
             DEBUG(dbgSys, "This is SC_Write.\n");
-            DEBUG(dbgSys, "The buffer pointer is " << static_cast<void*>(buffer_ptr) << ".\n");
-            DEBUG(dbgSys, "There are total " << size << " bytes to write.\n");
-            DEBUG(dbgSys, "The file id is " << file_id << ".\n");
+            DEBUG(dbgSys, "The buffer content: " << msg);
             kernel->machine->WriteRegister(2, (int)size);
             kernel->machine->WriteRegister(PrevPCReg, kernel->machine->ReadRegister(PCReg));
             kernel->machine->WriteRegister(PCReg, kernel->machine->ReadRegister(PCReg) + 4);
